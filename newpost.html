@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Post</title>
+    <style>
+        body {
+            background-color: khaki;
+        }
+        h1 {
+            text-align: center;
+            font-size: 50px;
+            color: darkblue;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        section {
+            height: fit-content;
+            width: fit-content;
+            position: relative;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .nav-table {
+            margin: 0 auto;
+        }
+        .form-table {
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        .button-link {
+            text-decoration: none;
+        }
+        button {
+            color: white;
+            background-color: rgb(7, 117, 80);
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: rgb(15, 15, 15);
+        }
+        label {
+            font-size: 18px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: darkblue;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        input[type="text"]:focus {
+            border-color: rgb(7, 117, 80);
+            outline: none;
+        }
+        td {
+            padding: 10px;
+        }
+        .form-container {
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body style="background-color: khaki;">
+    <section style="height: fit-content; width: fit-content;position: relative;">
+        <form>
+            <table>
+                <tr>
+                    <td>
+                        <a href="/home" class="button-link"><button type="button">HOME</button></a>
+                    </td>
+                    <td>
+                        <a href="/create" class="button-link"><button type="button">CREATE</button></a>
+                    </td>
+                    <td>
+                        <a href="/manage" class="button-link"><button type="button">MANAGE</button></a>
+                    </td>
+                    <td>
+                        <a href="/delete" class="button-link"><button type="button">DELETE</button></a>
+                    </td>
+                    <td>
+                        <a href="/drafts" class="button-link"><button type="button">DRAFTS</button></a>
+                    </td>
+                </tr>
+            </table>
+            
+        </form>
+    </section> 
+    <h1 style="text-align: center;font-size: 50px;color:darkblue;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+        <i>
+            Create a post
+        </i>
+    </h1>
+    <center>
+        <form>
+            <table>
+                <tr>
+                    <td>
+                        <label>
+                            ID
+                        </label>
+                    </td>
+                    <td>
+                        <input type="text" id="postId"><br>
+                        </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>
+                            Title
+                        </label>
+                    </td>
+                    <td>
+                        <input type="text" id="title"><br>
+                        </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <label for="content">Content</label>
+                    </td>
+                    <td>
+                        <textarea id="content" name="content" rows="10" cols="42"></textarea><br>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label>
+                            Tags
+                        </label>
+                    </td>
+                    <td>
+                        <input type="text" id="tags"><br>
+                        </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center;">
+                        <button type="button" style="background-color: purple;" onclick="createPost()">CREATE POST</button>
+                    </td>
+                </tr>
+
+            </table>
+            
+            
+        </form>
+    
+    
+</body>
+</html>
+
+
+<script>
+    function createPost() {
+        // JavaScript function to handle form submission
+        alert('Post Created!');
+        // Retrieve form data
+        var postId = document.getElementById('postId').value;
+            var title = document.getElementById('title').value;
+            var content = document.getElementById('content').value;
+            var tags = document.getElementById('tags').value;
+
+            var formData = new FormData();
+            formData.append('postId',postId)
+            formData.append('title', title);
+            formData.append('content', content);
+            formData.append('tags', tags);
+
+            fetch('/create', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                window.location.href = '/'; // Redirect to home page or wherever after successful submission
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });            
+    }
+</script>
