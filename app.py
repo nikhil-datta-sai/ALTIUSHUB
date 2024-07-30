@@ -21,7 +21,7 @@ def home():
 @app.route('/create', methods=['GET', 'POST'])
 def create():
     if request.method == 'POST':
-        postId = request.form['postId']  # Assuming postId is provided in your HTML form
+        postId = request.form['postId']  # Assuming postId is provided in your HTML form initially
         title = request.form['title']
         content = request.form['content']
         tags = request.form['tags']
